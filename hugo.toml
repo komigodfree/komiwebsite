@@ -1,7 +1,6 @@
 baseURL = "https://komilab.org"
 languageCode = "fr"
 title = "KomiLab — Engineering Intelligence Lab"
-theme = ""
 defaultContentLanguage = "fr"
 enableRobotsTXT = true
 enableGitInfo = true
