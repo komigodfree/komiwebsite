@@ -1,0 +1,35 @@
+<a href="{{ .RelPermalink }}" class="lab-card">
+
+  <div class="lab-card-meta">
+    {{ with .Params.categories }}
+      {{ range first 1 . }}
+        <span class="badge badge-category">{{ . }}</span>
+      {{ end }}
+    {{ end }}
+    {{ with .Params.difficulty }}
+      <span class="badge badge-{{ . | lower | replaceRE "[^a-z]" "" }}">{{ . }}</span>
+    {{ end }}
+    {{ with .Params.version }}
+      <span class="text-mono" style="font-size:var(--text-xs);color:var(--color-text-muted)">v{{ . }}</span>
+    {{ end }}
+  </div>
+
+  <h3 class="lab-card-title">{{ .Title }}</h3>
+
+  <p class="lab-card-description">
+    {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 120 }}{{ end }}
+  </p>
+
+  <div class="lab-card-footer">
+    <div class="lab-card-author">
+      <div class="lab-card-author-avatar">
+        {{ with .Params.author }}{{ substr . 0 1 | upper }}{{ else }}K{{ end }}
+      </div>
+      <span>{{ with .Params.author }}{{ . }}{{ else }}KomiLab{{ end }}</span>
+    </div>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">
+      {{ .Date.Format "02 Jan 2006" }}
+    </time>
+  </div>
+
+</a>

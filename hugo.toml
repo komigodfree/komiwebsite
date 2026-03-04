@@ -1,0 +1,103 @@
+baseURL = "https://komilab.org"
+languageCode = "fr"
+title = "KomiLab — Engineering Intelligence Lab"
+theme = ""
+defaultContentLanguage = "fr"
+enableRobotsTXT = true
+enableGitInfo = true
+
+[build]
+  writeStats = true
+
+[minify]
+  minifyOutput = true
+
+[params]
+  description = "Plateforme d'ingénierie technique — Réseaux, Cybersécurité, Cloud, Infrastructure. Documentation production-ready."
+  author = "KomiLab"
+  logoText = "KomiLab"
+  siteTagline = "Engineering Intelligence Lab"
+  discordURL = "https://discord.gg/komilab"
+  newsletterProvider = "mailerlite"
+  analyticsProvider = "plausible"
+  plausibleDomain = "komilab.org"
+  githubURL = "https://github.com/komilab"
+  twitterHandle = "@komilab"
+  locale = "fr_FR"
+
+[params.contact]
+  email = "contact@komilab.org"
+
+[params.features]
+  darkMode = true
+  toc = true
+  readingProgress = true
+  copyButton = true
+  search = true
+  newsletter = true
+  discord = true
+
+[markup]
+  [markup.highlight]
+    style = "dracula"
+    lineNos = false
+    guessSyntax = true
+    tabWidth = 2
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"
+  difficulty = "difficulty"
+  series = "series"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[languages]
+  [languages.fr]
+    languageName = "Français"
+    weight = 1
+    contentDir = "content"
+  [languages.en]
+    languageName = "English"
+    weight = 2
+    contentDir = "content.en"
+    disabled = true
+
+[menu]
+  [[menu.main]]
+    name = "Labs"
+    url = "/labs/"
+    weight = 1
+  [[menu.main]]
+    name = "Veille"
+    url = "/veille/"
+    weight = 2
+  [[menu.main]]
+    name = "À propos"
+    url = "/a-propos/"
+    weight = 3
+
+[security]
+  enableInlineShortcodes = false
+  [security.funcs]
+    getenv = ["^HUGO_", "^CI$"]

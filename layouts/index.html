@@ -1,0 +1,109 @@
+{{ define "main" }}
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-label">Engineering Intelligence Lab</div>
+    <h1>
+      La référence technique<br>
+      <span class="text-accent">infrastructure francophone</span>
+    </h1>
+    <p class="hero-description">
+      Labs ultra-détaillés, approche production réelle, documentation audit-ready.
+      Réseaux, cybersécurité, cloud, virtualisation et automatisation.
+    </p>
+    <div class="hero-actions">
+      <a href="/labs/" class="btn btn-primary btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        Parcourir les Labs
+      </a>
+      <a href="{{ .Site.Params.discordURL | default "#" }}" class="btn btn-secondary btn-lg" target="_blank" rel="noopener">
+        Rejoindre Discord
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">{{ len (where .Site.RegularPages "Section" "labs") }}</span>
+        <span class="hero-stat-label">Labs publiés</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">11</span>
+        <span class="hero-stat-label">Catégories</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">FR</span>
+        <span class="hero-stat-label">Francophone</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">v1.0</span>
+        <span class="hero-stat-label">Stable</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section style="margin-bottom:var(--space-16)" aria-labelledby="categories-title">
+    <div class="section-header">
+      <h2 class="section-title" id="categories-title">Domaines techniques</h2>
+      <p class="section-subtitle">Chaque lab est classifié, versionné et orienté production.</p>
+    </div>
+    <div class="categories-grid">
+      {{ $categories := slice
+        (dict "name" "Réseaux" "url" "/labs/categories/reseaux/" "icon" "&#128205;" "desc" "Routing, switching, WAN, SD-WAN")
+        (dict "name" "Cybersécurité" "url" "/labs/categories/cybersecurite/" "icon" "&#128274;" "desc" "SIEM, SOC, hardening, pentest")
+        (dict "name" "Virtualisation" "url" "/labs/categories/virtualisation/" "icon" "&#128421;" "desc" "VMware, Proxmox, Hyper-V")
+        (dict "name" "Cloud" "url" "/labs/categories/cloud/" "icon" "&#9729;" "desc" "AWS, Azure, GCP, multi-cloud")
+        (dict "name" "Hybrid Architecture" "url" "/labs/categories/hybrid-architecture/" "icon" "&#128279;" "desc" "On-prem + Cloud, connectivity")
+        (dict "name" "Linux & Systèmes" "url" "/labs/categories/linux/" "icon" "&#128039;" "desc" "Admin système, scripting, OS")
+        (dict "name" "Automatisation" "url" "/labs/categories/automatisation/" "icon" "&#9881;" "desc" "Ansible, Terraform, CI/CD")
+        (dict "name" "Monitoring" "url" "/labs/categories/monitoring/" "icon" "&#128200;" "desc" "Grafana, Prometheus, ELK")
+        (dict "name" "Haute Disponibilité" "url" "/labs/categories/haute-disponibilite/" "icon" "&#128101;" "desc" "PRA, clustering, failover")
+        (dict "name" "Audit & Gouvernance" "url" "/labs/categories/audit-gouvernance/" "icon" "&#128196;" "desc" "ISO 27001, RGPD, ITIL")
+        (dict "name" "Labs Expérimentaux" "url" "/labs/categories/experimental/" "icon" "&#128300;" "desc" "R&D, proof of concept")
+      }}
+      {{ range $categories }}
+      <a href="{{ .url }}" class="category-card">
+        <div class="category-icon">{{ .icon | safeHTML }}</div>
+        <div>
+          <div class="category-name">{{ .name }}</div>
+          <div class="category-count">{{ .desc }}</div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- LATEST LABS -->
+  {{ $labs := (where .Site.RegularPages "Section" "labs") | first 6 }}
+  {{ if $labs }}
+  <section style="margin-bottom:var(--space-16)" aria-labelledby="labs-title">
+    <div class="section-header-row section-header">
+      <div>
+        <h2 class="section-title" id="labs-title">Derniers Labs</h2>
+        <p class="section-subtitle">Documentation technique récente, versionnée et production-ready.</p>
+      </div>
+      <a href="/labs/" class="section-link">Tous les labs &rarr;</a>
+    </div>
+    <div class="labs-grid">
+      {{ range $labs }}
+        {{ partial "lab/card.html" . }}
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- NEWSLETTER -->
+  <section style="margin-bottom:var(--space-16)" aria-labelledby="newsletter-title">
+    {{ partial "newsletter/block.html" . }}
+  </section>
+
+  <!-- DISCORD -->
+  <section style="margin-bottom:var(--space-10)" aria-labelledby="discord-title">
+    {{ partial "discord/block.html" . }}
+  </section>
+
+</div>
+{{ end }}

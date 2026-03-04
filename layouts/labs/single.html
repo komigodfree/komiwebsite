@@ -1,0 +1,105 @@
+{{ define "main" }}
+<div class="container">
+<article>
+
+  <!-- LAB HEADER -->
+  <header class="lab-header">
+
+    <div class="lab-meta-row">
+      {{ with .Params.categories }}
+        {{ range first 1 . }}
+          <a href="/labs/categories/{{ . | urlize }}/" class="badge badge-category">{{ . }}</a>
+        {{ end }}
+      {{ end }}
+      {{ with .Params.difficulty }}
+        <span class="badge badge-{{ . | lower | replaceRE "[éèê]" "e" | replaceRE "[àâ]" "a" | replaceRE "[^a-z]" "" }}">{{ . }}</span>
+      {{ end }}
+      {{ range .Params.tags }}
+        <a href="/labs/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>
+      {{ end }}
+    </div>
+
+    <h1 class="lab-title">{{ .Title }}</h1>
+
+    {{ with .Description }}
+    <p class="lab-description">{{ . }}</p>
+    {{ end }}
+
+    <!-- AUTHOR BLOCK -->
+    {{ with .Params.author }}
+    <div class="lab-author-block">
+      <div class="lab-author-avatar">{{ substr . 0 1 | upper }}</div>
+      <div class="lab-author-info">
+        <div class="lab-author-name">{{ . }}</div>
+        <div class="lab-author-role">
+          <a href="/authors/{{ . | urlize }}/">Voir tous les labs de cet auteur</a>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+
+    <!-- VERSION & DATES -->
+    <div class="lab-version-info">
+      {{ with .Params.version }}
+        <span>version : v{{ . }}</span>
+        <span style="color:var(--color-border)">|</span>
+      {{ end }}
+      <span>publié : <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time></span>
+      {{ with .Params.lastmod }}
+        <span style="color:var(--color-border)">|</span>
+        <span>mis à jour : <time datetime="{{ . }}">{{ dateFormat "02 Jan 2006" . }}</time></span>
+      {{ end }}
+      <span style="color:var(--color-border)">|</span>
+      <span>{{ .ReadingTime }} min de lecture</span>
+    </div>
+
+  </header>
+
+  <!-- TWO-COLUMN LAYOUT: CONTENT + TOC -->
+  <div class="lab-layout">
+
+    <!-- MAIN CONTENT -->
+    <div class="lab-content">
+      {{ .Content }}
+
+      <!-- TAGS FOOTER -->
+      {{ with .Params.tags }}
+      <div style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--color-border)">
+        <span style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.1em;color:var(--color-text-muted);font-weight:600;margin-right:var(--space-3)">Tags</span>
+        <div class="lab-tags-row">
+          {{ range . }}
+            <a href="/labs/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      <!-- SERIES -->
+      {{ with .Params.series }}
+      <div style="margin-top:var(--space-6);padding:var(--space-4);background:var(--color-bg-secondary);border:1px solid var(--color-border);border-radius:var(--radius-md)">
+        <p style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.1em;color:var(--color-accent);font-weight:600;margin-bottom:var(--space-2)">Serie</p>
+        {{ range . }}
+        <a href="/labs/series/{{ . | urlize }}/" style="font-weight:600;color:var(--color-text-primary)">{{ . }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <!-- NEWSLETTER CTA in article -->
+      <div style="margin-top:var(--space-10)">
+        {{ partial "newsletter/block.html" . }}
+      </div>
+    </div>
+
+    <!-- TOC SIDEBAR -->
+    {{ if .TableOfContents }}
+    <aside class="lab-toc" aria-label="Table des matières">
+      <h4>Table des matières</h4>
+      {{ .TableOfContents }}
+    </aside>
+    {{ end }}
+
+  </div>
+
+</article>
+</div>
+{{ end }}

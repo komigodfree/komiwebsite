@@ -1,0 +1,70 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span style="color:var(--color-accent)">Komi</span>Lab
+        </div>
+        <p class="footer-tagline">
+          Engineering Intelligence Lab — Documentation technique production-ready pour les ingénieurs IT.
+          Infrastructure, cybersécurité, cloud, automatisation.
+        </p>
+        <div style="margin-top:var(--space-4);display:flex;gap:var(--space-3)">
+          {{ with .Site.Params.githubURL }}
+          <a href="{{ . }}" target="_blank" rel="noopener" aria-label="GitHub" class="tag">
+            GitHub
+          </a>
+          {{ end }}
+          {{ with .Site.Params.discordURL }}
+          <a href="{{ . }}" target="_blank" rel="noopener" aria-label="Discord" class="tag">
+            Discord
+          </a>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Labs</h5>
+          <ul>
+            <li><a href="/labs/categories/reseaux/">Réseaux</a></li>
+            <li><a href="/labs/categories/cybersecurite/">Cybersécurité</a></li>
+            <li><a href="/labs/categories/virtualisation/">Virtualisation</a></li>
+            <li><a href="/labs/categories/cloud/">Cloud</a></li>
+            <li><a href="/labs/categories/linux/">Linux & Systèmes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Plateforme</h5>
+          <ul>
+            <li><a href="/veille/">Veille tech</a></li>
+            <li><a href="/a-propos/">À propos</a></li>
+            <li><a href="/a-propos/#newsletter">Newsletter</a></li>
+            <li><a href="/a-propos/#contact">Contact</a></li>
+            <li><a href="{{ .Site.Params.discordURL | default "#" }}" target="_blank" rel="noopener">Discord</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Légal</h5>
+          <ul>
+            <li><a href="/mentions-legales/">Mentions légales</a></li>
+            <li><a href="/confidentialite/">Confidentialité</a></li>
+            <li><a href="/sitemap.xml">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        &copy; {{ now.Year }} KomiLab — Tous droits réservés.
+        Construit avec <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> et déployé sur <a href="https://pages.cloudflare.com" target="_blank" rel="noopener">Cloudflare Pages</a>.
+      </p>
+      <div class="footer-badges">
+        <span class="badge badge-category">Hugo SSG</span>
+        <span class="badge badge-category">Open Source</span>
+      </div>
+    </div>
+  </div>
+</footer>
